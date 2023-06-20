@@ -15,13 +15,13 @@ public class WishlistController {
 
     private final WishlistService wishlistService;
 
-    @PostMapping("/{customerId}/add")
+    @PostMapping("/{customerId}")
     public ResponseEntity<Void> addToWishlist(@PathVariable String customerId, @RequestBody ProductDTO productDTO) {
         wishlistService.addToWishlist(customerId, productDTO.getProductId());
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{customerId}/remove")
+    @DeleteMapping("/{customerId}")
     public ResponseEntity<Void> removeFromWishlist(@PathVariable String customerId, @RequestBody ProductDTO productDTO) {
         wishlistService.removeFromWishlist(customerId, productDTO.getProductId());
         return ResponseEntity.ok().build();
