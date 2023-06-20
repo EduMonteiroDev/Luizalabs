@@ -22,7 +22,7 @@ O Wishlist Service é um serviço de gerenciamento de listas de desejos. Ele per
 ## Ferramentas necessárias para o projeto localmente
 
 - IDE de sua preferência
-- Navegador de sua preferência
+- Postman
 - JDK 17
     - Utilizei  instalação da versão corretto 17 pela própria IDE, no caso Intellij.
 - Docker e Docker compose
@@ -47,9 +47,11 @@ cd Luizalabs-Wishlist
 
 É possível executar o projeto de duas formas:
 
+>Importe a collection do postman que está na pasta postman com todos os endpoints configurados.
+
 ### Apenas containers
 
-1. Execute o comando
+Execute o comando
 ```shell
 docker-compose -f containers/docker-compose.yml up -d --build
 ```
@@ -60,7 +62,7 @@ docker-compose -f containers/docker-compose.yml up -d --build
 
 ### Aplicação rodando localmente
 
-1. Execute o comando
+Execute o comando
 ```shell
 docker-compose -f containers/database-compose.yml up -d --build
 

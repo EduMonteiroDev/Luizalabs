@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "a928c819-8446-4c72-9901-f51a45ed5880",
+		"name": "Wishlist Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28053099"
+	},
+	"item": [
+		{
+			"name": "Wishlist endpoints",
+			"item": [
+				{
+					"name": "Add product to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"playstation5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/wishlist/{customerId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove product of wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"playstation5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/wishlist/{customerId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Find customer wishlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/wishlist/{customerId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Contains product in wishlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/wishlist/{customerId}/contains/{productId}"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
