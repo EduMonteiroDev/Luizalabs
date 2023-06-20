@@ -1,9 +1,11 @@
 package com.example.wishlist.repository;
 
 import com.example.wishlist.exception.DatabaseException;
+import com.example.wishlist.model.entity.WishlistEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,16 +22,12 @@ class MongoDBRepositoryTest {
     @Mock
     private MongoTemplate mongoTemplate;
 
-    private MongoDBRepository<TestEntity> repository;
-
-    @BeforeEach
-    void setup() {
-        repository = new MongoDBRepository<>(mongoTemplate, TestEntity.class);
-    }
+    @InjectMocks
+    private MongoDBRepository repository;
 
     @Test
     void save_CallsMongoTemplateSave() {
-        var entity = TestEntity.builder().build();
+        var entity = WishlistEntity.builder().build();
 
         repository.save(entity);
 
@@ -38,7 +36,7 @@ class MongoDBRepositoryTest {
 
     @Test
     void save_ThrowsDatabaseException_WhenMongoTemplateThrowsException() {
-        var entity = TestEntity.builder().build();
+        var entity = WishlistEntity.builder().build();
 
         doThrow(RuntimeException.class).when(mongoTemplate).save(entity);
 
@@ -51,13 +49,13 @@ class MongoDBRepositoryTest {
 
         repository.findById(id);
 
-        verify(mongoTemplate, Mockito.times(1)).findById(id, TestEntity.class);
+        verify(mongoTemplate, Mockito.times(1)).findById(id, WishlistEntity.class);
     }
 
     @Test
     void findById_ThrowsDatabaseException_WhenMongoTemplateThrowsException() {
         var id = "123";
-        doThrow(RuntimeException.class).when(mongoTemplate).findById(id, TestEntity.class);
+        doThrow(RuntimeException.class).when(mongoTemplate).findById(id, WishlistEntity.class);
 
         assertThrows(DatabaseException.class, () -> repository.findById(id));
     }
@@ -66,19 +64,19 @@ class MongoDBRepositoryTest {
     void findAll_CallsMongoTemplateFindAll() {
         repository.findAll();
 
-        verify(mongoTemplate, Mockito.times(1)).findAll(TestEntity.class);
+        verify(mongoTemplate, Mockito.times(1)).findAll(WishlistEntity.class);
     }
 
     @Test
     void findAll_ThrowsDatabaseException_WhenMongoTemplateThrowsException() {
-        doThrow(RuntimeException.class).when(mongoTemplate).findAll(TestEntity.class);
+        doThrow(RuntimeException.class).when(mongoTemplate).findAll(WishlistEntity.class);
 
         assertThrows(DatabaseException.class, () -> repository.findAll());
     }
 
     @Test
     void delete_CallsMongoTemplateRemove() {
-        var entity = TestEntity.builder().build();
+        var entity = WishlistEntity.builder().build();
 
         repository.delete(entity);
 
@@ -87,7 +85,7 @@ class MongoDBRepositoryTest {
 
     @Test
     void delete_ThrowsDatabaseException_WhenMongoTemplateThrowsException() {
-        var entity = TestEntity.builder().build();
+        var entity = WishlistEntity.builder().build();
 
         doThrow(RuntimeException.class).when(mongoTemplate).remove(entity);
 

@@ -1,14 +1,12 @@
 package com.example.wishlist.repository;
 
 import com.example.wishlist.model.entity.WishlistEntity;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class WishlistRepository extends MongoDBRepository<WishlistEntity> {
+import java.util.List;
 
-    public WishlistRepository(MongoTemplate mongoTemplate) {
-        super(mongoTemplate, WishlistEntity.class);
-    }
-
+public interface WishlistRepository{
+    void save(WishlistEntity entity);
+    WishlistEntity findById(String id);
+    List<WishlistEntity> findAll();
+    void delete(WishlistEntity entity);
 }

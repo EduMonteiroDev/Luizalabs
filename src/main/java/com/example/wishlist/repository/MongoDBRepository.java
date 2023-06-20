@@ -1,24 +1,23 @@
 package com.example.wishlist.repository;
 
 import com.example.wishlist.exception.DatabaseException;
+import com.example.wishlist.model.entity.WishlistEntity;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.example.wishlist.constants.WishlistConstants.DATABASE_CONNECTION_EXCEPTION;
 
-public class MongoDBRepository<T> implements CrudRepository<T>{
+@Repository
+public class MongoDBRepository implements WishlistRepository {
     private final MongoTemplate mongoTemplate;
-    private final Class<T> entityClass;
 
-    public MongoDBRepository(MongoTemplate mongoTemplate, Class<T> entityClass) {
+    public MongoDBRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
-        this.entityClass = entityClass;
     }
     @Override
-    public void save(T entity) {
+    public void save(WishlistEntity entity) {
         try {
             mongoTemplate.save(entity);
         }catch (Exception e){
@@ -27,18 +26,18 @@ public class MongoDBRepository<T> implements CrudRepository<T>{
     }
 
     @Override
-    public T findById(String id) {
+    public WishlistEntity findById(String id) {
         try{
-            return mongoTemplate.findById(id, entityClass);
+            return mongoTemplate.findById(id, WishlistEntity.class);
         }catch (Exception e){
             throw new DatabaseException(DATABASE_CONNECTION_EXCEPTION);
         }
     }
 
     @Override
-    public List<T> findAll() {
+    public List<WishlistEntity> findAll() {
         try{
-            return mongoTemplate.findAll(entityClass);
+            return mongoTemplate.findAll(WishlistEntity.class);
         }catch (Exception e){
             throw new DatabaseException(DATABASE_CONNECTION_EXCEPTION);
         }
@@ -46,7 +45,7 @@ public class MongoDBRepository<T> implements CrudRepository<T>{
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(WishlistEntity entity) {
         try {
             mongoTemplate.remove(entity);
         }catch (Exception e){
