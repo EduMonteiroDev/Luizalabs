@@ -2,7 +2,7 @@ package com.example.wishlist.steps;
 
 import com.example.wishlist.controller.WishlistController;
 import com.example.wishlist.exception.WishlistException;
-import com.example.wishlist.model.dto.ProductDTO;
+import com.example.wishlist.model.request.ProductRequest;
 import com.example.wishlist.model.entity.WishlistEntity;
 import com.example.wishlist.repository.WishlistRepository;
 import io.cucumber.java.en.Given;
@@ -44,7 +44,7 @@ public class WishlistControllerSteps {
     @When("the user adds product {string} to the wishlist")
     public void addToWishlist(String productId) {
         try {
-            addResponse = wishlistController.addToWishlist(customerId, ProductDTO.builder().productId(productId).build());
+            addResponse = wishlistController.addToWishlist(customerId, ProductRequest.builder().productId(productId).build());
         } catch (WishlistException e) {
             addResponse = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -65,7 +65,7 @@ public class WishlistControllerSteps {
     @When("the user removes product {string} from the wishlist")
     public void removeFromWishlist(String productId) {
         try {
-            addResponse = wishlistController.removeFromWishlist(customerId, ProductDTO.builder().productId(productId).build());
+            addResponse = wishlistController.removeFromWishlist(customerId, ProductRequest.builder().productId(productId).build());
         } catch (WishlistException e) {
             addResponse = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

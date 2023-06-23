@@ -1,4 +1,4 @@
-package com.example.wishlist.model.dto;
+package com.example.wishlist.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class ProductRequest {
 
     private String productId;
 }

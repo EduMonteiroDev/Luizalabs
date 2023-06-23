@@ -1,6 +1,6 @@
 package com.example.wishlist.controller;
 
-import com.example.wishlist.model.dto.ProductDTO;
+import com.example.wishlist.model.request.ProductRequest;
 import com.example.wishlist.service.WishlistService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@ class WishlistControllerTest {
     @Test
     void addToWishlist_with_success() {
         var customerId = "123";
-        var productDTO = ProductDTO.builder().productId("TEST001").build();
+        var productDTO = ProductRequest.builder().productId("TEST001").build();
         var expectedResponse = ResponseEntity.ok().build();
         var response = wishlistController.addToWishlist(customerId, productDTO);
 
@@ -41,7 +41,7 @@ class WishlistControllerTest {
     @Test
     void removeFromWishlist_with_success() {
         var customerId = "123";
-        var productDTO = ProductDTO.builder().productId("TEST001").build();
+        var productDTO = ProductRequest.builder().productId("TEST001").build();
         var expectedResponse = ResponseEntity.ok().build();
         var response = wishlistController.removeFromWishlist(customerId, productDTO);
 
