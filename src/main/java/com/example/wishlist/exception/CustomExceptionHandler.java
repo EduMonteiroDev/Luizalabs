@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.wishlist.constants.WishlistConstants.INVALID_REQUEST_EXCEPTION;
 
@@ -20,17 +21,17 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(WishlistException.class)
     protected ResponseEntity<Object> handleWishlistException(WishlistException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, returnExceptionMessage(ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(DatabaseException.class)
     protected ResponseEntity<Object> handleDatabaseException(DatabaseException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        return handleExceptionInternal(ex, returnExceptionMessage(ex.getMessage()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-        return handleExceptionInternal(ex, INVALID_REQUEST_EXCEPTION, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, returnExceptionMessage(INVALID_REQUEST_EXCEPTION), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
@@ -40,5 +41,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         });
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
+    }
+
+    private Map<String,String> returnExceptionMessage(String message){
+        return Map.of("message:", message);
     }
 }
